@@ -22,6 +22,8 @@ Route::get('/upload-file', [FileUpload::class, 'createForm']);
 
 Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
+Route::get('/upload-file/get/{filename}', [FileUpload::class, 'getFile'])->name('getfile');
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');

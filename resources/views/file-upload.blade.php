@@ -52,5 +52,24 @@
         </form>
     </div>
 
+    <div class="container mt-5">
+        <table>
+            <tr>
+              <th>File Name</th>
+              <th>size</th>
+              <th>action</th>
+            </tr>
+            @foreach ($files as $file)
+            <tr>
+                <td>{{ $file->name }}</td>
+                <td>{{ $file->size }}</td>
+                <td><a href="{{ route('getfile',[$file->name]) }}">Download</a></td>
+                {{-- <td><a href="{{ asset("storage/uploads/$file->name") }}">Download</a></td> --}}
+              </tr>
+            @endforeach
+            
+          </table>
+    </div>
+
 </body>
 </html>

@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class FileUpload extends Controller
 {
     public function createForm()
     {
-        return view('file-upload');
+        // $path = Storage::disk('public')->files('uploads');
+        // $path = storage_path() . "\\uploads";
+        // $dir = Storage::disk('public')->files();
+        // dd($dir);
+
+        $files = File::all();
+        return view('file-upload', compact('files'));
     }
 
     public function fileUpload(Request $req)
@@ -36,5 +43,17 @@ class FileUpload extends Controller
                 ->with('success', 'File has been uploaded.')
                 ->with('file', $fileName);
         }
+    }
+
+    public function getFile($filename)
+    {
+        $path = storage_path() . "\\app\\public\\uploads\\" . $filename;
+        // dd($path);
+        if (file_exists($path)) {
+            return Response::download($path);
+        }
+
+        // return (new Response($file, 200))
+        //     ->header('Content-Type', 'image/jpeg');
     }
 }
